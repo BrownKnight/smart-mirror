@@ -1,6 +1,6 @@
 <template>
     <div class="weather">
-        <div>{{ weather }}</div>
+        <div>{{ phrase }}</div>
     </div>
 </template>
 
@@ -9,16 +9,16 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class Weather extends Vue {
-    icon_name = "Error";
-    phrase = "Error";
+    iconName = "";
+    phrase = "";
     temperature = 0;
-    tag_line = "Error";
+    tagLine = "";
 
     // API Key for forecast.io
     private apiKey = "94afa34c0fe89daa3ddc36a01edb1aa0";
     // Location for Mimbridge
     private location = "51.340050,-0.583090";
-    private apiUrl = `https://api.forecast.io/forecast/${this.apiKey}/${this.location}?units=si&exclude=minutely,hourly,alerts,flags`;
+    private apiUrl = `https://api.darksky.net/forecast/${this.apiKey}/${this.location}?units=si&exclude=minutely,hourly,alerts,flags`;
 
     created() {
         this.currentWeather();
@@ -30,19 +30,19 @@ export default class Weather extends Vue {
         fetch(this.apiUrl)
             .then(res => {
                 if (!res.ok) {
-                    this.icon_name = "error";
+                    this.iconName = "error";
                     this.phrase = "Error";
                     this.temperature = res.status;
-                    this.tag_line = res.statusText;
-                    throw new Error("Error")
+                    this.tagLine = res.statusText;
+                    throw Error;
                 }
                 return res;
             })
             .then(res => res.json())
             .then(json => {
-                console.log(json.currently)
+                console.log(json.currently);
             })
-            .catch(error => {});
+            .catch(null);
     }
 }
 </script>
