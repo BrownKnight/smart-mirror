@@ -2,12 +2,8 @@
     <div class="weather">
         <div class="row">
             <div id="temperature">
-                <div id="actual-temperature">
-                    {{ temperature }}&deg;
-                </div>
-                <div id="apparent-temperature">
-                    Feels Like {{ apparentTemperature }}&deg;
-                </div>
+                <div id="actual-temperature">{{ temperature }}&deg;</div>
+                <div id="apparent-temperature">Feels Like {{ apparentTemperature }}&deg;</div>
             </div>
             <div id="icon"><img :src="icon" alt="" /></div>
         </div>
@@ -116,7 +112,9 @@ export default class Weather extends Vue {
                 let highlight = formattedPhrase.substring(startIndex, endIndex);
                 const suffix = formattedPhrase.substring(endIndex);
                 highlight = highlight.italics();
-                formattedPhrase = `${prefix != "" ? prefix + "<br/>" : ""}<span style="color: ${chosenPhrase.color}">${highlight}</span><br/>${suffix}`;
+                formattedPhrase = `${prefix != "" ? prefix + "<br/>" : ""}<span style="color: ${
+                    chosenPhrase.color
+                }">${highlight}</span><br/>${suffix}`;
 
                 formattedPhrase = formattedPhrase.replace(/\|/g, " ");
                 this.phrase = formattedPhrase;
@@ -127,7 +125,6 @@ export default class Weather extends Vue {
                 this.summary = "error";
                 this.temperature = -1;
                 this.apparentTemperature = -1;
-
             });
     }
 }
@@ -141,7 +138,7 @@ export default class Weather extends Vue {
     align-self: center;
     display: flex;
     flex-direction: column;
-    margin-top: 0.5rem
+    margin-top: 0.5rem;
 }
 
 .weather > .row {
@@ -150,11 +147,11 @@ export default class Weather extends Vue {
     display: flex;
     justify-content: space-between;
     align-items: stretch;
-    padding: 0.5rem
+    padding: 0.5rem;
 }
 
 img {
-    width: 7rem
+    width: 7rem;
 }
 
 #temperature {
@@ -166,10 +163,10 @@ img {
     font-size: 4rem;
     line-height: 3.5rem;
     justify-self: center;
-    margin-top: auto
+    margin-top: auto;
 }
 #apparent-temperature {
-    margin-top:auto;
+    margin-top: auto;
     justify-self: end;
 }
 

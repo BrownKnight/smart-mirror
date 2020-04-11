@@ -3,12 +3,14 @@
         <Greeting id="greeting" />
         <Weather id="weather" />
         <Time id="time" />
+        <DateString id="date-string" />
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Time from "./components/Time.vue";
+import DateString from "./components/DateString.vue";
 import Greeting from "./components/Greeting.vue";
 import Weather from "./components/Weather.vue";
 
@@ -16,7 +18,8 @@ import Weather from "./components/Weather.vue";
     components: {
         Greeting,
         Time,
-        Weather
+        Weather,
+        DateString
     }
 })
 export default class App extends Vue {}
@@ -61,4 +64,11 @@ body {
     grid-row: 1 / span 4;
     align-self: start;
 }
+
+#date-string {
+    grid-column: right-l / right-r;
+    grid-row: 1 / span 2;
+    align-self: end;
+}
+
 </style>
