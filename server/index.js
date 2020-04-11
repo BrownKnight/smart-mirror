@@ -1,6 +1,8 @@
 import express from 'express';
 // import socketIO from "socket.io";
 
+import Weather from './api/weather'
+
 export default (app, http) => {
   app.use(express.json());
   
@@ -9,6 +11,12 @@ export default (app, http) => {
   });
   app.get('/api', (req, res) => {
     res.json({msg: 'This is entry point of the API'});
+  });
+  app.get('/api/weather', (req, res) => {
+    let weather = new Weather()
+    weather.getWeather().then((data) => {
+      res.json(data);
+    });
   });
   //
   // app.post('/bar', (req, res) => {
