@@ -4,6 +4,7 @@
         <Weather id="weather" />
         <Time id="time" />
         <DateString id="date-string" />
+        <Calendar id="calendar" />
     </div>
 </template>
 
@@ -13,13 +14,15 @@ import Time from "./components/Time.vue";
 import DateString from "./components/DateString.vue";
 import Greeting from "./components/Greeting.vue";
 import Weather from "./components/Weather.vue";
+import Calendar from "./components/Calendar.vue";
 
 @Component({
     components: {
         Greeting,
         Time,
         Weather,
-        DateString
+        DateString,
+        Calendar
     }
 })
 export default class App extends Vue {}
@@ -71,4 +74,8 @@ body {
     align-self: end;
 }
 
+#calendar {
+    grid-column: right-l / right-r;
+    grid-row: 1 / span auto;
+}
 </style>
