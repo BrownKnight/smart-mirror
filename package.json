@@ -16,10 +16,12 @@
     "@types/node": "^13.11.1",
     "@types/node-fetch": "^2.5.5",
     "@vue/cli-shared-utils": "^3.12.1",
+    "apl-client": "file:node_modules/apl-client",
     "body-parser": "^1.19.0",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
     "ical2json": "^3.0.0",
+    "jquery": "^3.5.0",
     "libxmljs": "^0.19.7",
     "moment": "^2.24.0",
     "nan": "^2.14.0",
@@ -65,6 +67,7 @@
     },
     "rules": {}
   },
+  "eslintIgnore": ["**/lib/**"],
   "browserslist": [
     "> 1%",
     "last 2 versions",
