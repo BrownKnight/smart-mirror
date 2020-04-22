@@ -11,7 +11,7 @@ import LeonClient from "./../leon/leonClient";
 @Component
 export default class Leon extends Vue {
     lastMessage = "Placeholder Message";
-    
+
     private leonClient: LeonClient;
 
     constructor() {
