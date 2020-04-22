@@ -4,6 +4,7 @@ import express from 'express';
 import Weather from './api/weather'
 import Calendar from './api/calendar';
 import moment from 'moment';
+import AppleMusic from "./api/appleMusic"
 
 export default (app, http) => {
   let weather = new Weather()
@@ -28,6 +29,12 @@ export default (app, http) => {
     let calender = new Calendar()
     let eventList = calender.getEvents(moment().startOf('day'), moment().startOf('day').add(2, 'days'));
     res.json(await eventList);
+  });
+
+  app.get('/api/apple-music-developer-token', async (req, res) => {
+    let appleMusic = new AppleMusic()
+    let developerToken = appleMusic.getDeveloperToken()
+    res.json(developerToken);
   });
   //
   // app.post('/bar', (req, res) => {

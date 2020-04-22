@@ -5,7 +5,8 @@
         <Time id="time" />
         <DateString id="date-string" />
         <Calendar id="calendar" />
-        <Leon id="leon" />
+        <!-- <Leon id="leon" /> -->
+        <AppleMusic id="apple-music" />
     </div>
 </template>
 
@@ -16,7 +17,8 @@ import DateString from "./components/DateString.vue";
 import Greeting from "./components/Greeting.vue";
 import Weather from "./components/Weather.vue";
 import Calendar from "./components/Calendar.vue";
-import Leon from "./components/Leon.vue";
+// import Leon from "./components/Leon.vue";
+import AppleMusic from "./components/AppleMusic.vue";
 
 @Component({
     components: {
@@ -25,7 +27,8 @@ import Leon from "./components/Leon.vue";
         Weather,
         DateString,
         Calendar,
-        Leon
+        // Leon,
+        AppleMusic
     }
 })
 export default class App extends Vue {}
