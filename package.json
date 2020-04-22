@@ -15,11 +15,12 @@
     "@types/express": "^4.17.6",
     "@types/node": "^13.11.1",
     "@types/node-fetch": "^2.5.5",
+    "@types/socket.io": "^2.1.4",
     "@vue/cli-shared-utils": "^3.12.1",
-    "apl-client": "file:node_modules/apl-client",
     "body-parser": "^1.19.0",
     "core-js": "^3.6.4",
     "express": "^4.17.1",
+    "fsevents": "^2.1.2",
     "ical2json": "^3.0.0",
     "jquery": "^3.5.0",
     "libxmljs": "^0.19.7",
@@ -28,12 +29,16 @@
     "node-fetch": "^2.6.0",
     "node-gyp": "^6.1.0",
     "require": "^2.4.20",
+    "socket.io": "^2.3.0",
+    "socket.io-client": "^2.3.0",
     "ts-node": "^8.8.2",
+    "uws": "^10.148.1",
     "vue": "^2.6.11",
     "vue-class-component": "^7.2.3",
     "vue-property-decorator": "^8.4.1"
   },
   "devDependencies": {
+    "@types/socket.io-client": "^1.4.32",
     "@typescript-eslint/eslint-plugin": "^2.26.0",
     "@typescript-eslint/parser": "^2.26.0",
     "@vue/cli-plugin-babel": "~4.3.0",
@@ -67,7 +72,9 @@
     },
     "rules": {}
   },
-  "eslintIgnore": ["**/lib/**"],
+  "eslintIgnore": [
+    "**/lib/**"
+  ],
   "browserslist": [
     "> 1%",
     "last 2 versions",

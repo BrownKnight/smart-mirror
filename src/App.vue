@@ -5,7 +5,7 @@
         <Time id="time" />
         <DateString id="date-string" />
         <Calendar id="calendar" />
-        <Alexa id="alexa" />
+        <Leon id="leon" />
     </div>
 </template>
 
@@ -16,7 +16,7 @@ import DateString from "./components/DateString.vue";
 import Greeting from "./components/Greeting.vue";
 import Weather from "./components/Weather.vue";
 import Calendar from "./components/Calendar.vue";
-import Alexa from "./components/Alexa.vue";
+import Leon from "./components/Leon.vue";
 
 @Component({
     components: {
@@ -25,7 +25,7 @@ import Alexa from "./components/Alexa.vue";
         Weather,
         DateString,
         Calendar,
-        Alexa
+        Leon
     }
 })
 export default class App extends Vue {}
