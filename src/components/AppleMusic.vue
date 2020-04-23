@@ -32,7 +32,7 @@ export default class AppleMusic extends Vue {
                         name: "Smart Mirror",
                         build: "1.0.0"
                     },
-                    declarativeMarkup: false,
+                    declarativeMarkup: false
                 };
 
                 console.log("Configuring MusicKit");
@@ -62,7 +62,7 @@ export default class AppleMusic extends Vue {
                 );
                 return;
             }
-            console.log(resource)
+            console.log(resource);
             console.log(`Found ${resource["library-playlists"].data.length} Playlists`);
             const playlist = resource["library-playlists"].data[0];
             console.log("Found playlist");
