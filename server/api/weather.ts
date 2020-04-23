@@ -41,9 +41,9 @@ export default class Weather {
             })
             .catch((statusText) => {
                 weather.icon = "error";
-                weather.summary = statusText;
-                weather.temperature = -1;
-                weather.apparentTemperature = -1;
+                weather.summary = "error" + statusText;
+                weather.temperature = -99;
+                weather.apparentTemperature = -99;
                 return weather;
             })
     }

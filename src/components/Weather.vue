@@ -50,7 +50,12 @@ export default class Weather extends Vue {
                 this.temperature = Math.round(temperature);
                 this.apparentTemperature = Math.round(apparentTemperature);
 
-                let summaryText = summary;
+                let summaryText: string = summary;
+                if (summaryText.includes("error")) {
+                    this.tagLine = summary;
+                    this.phrase = "Error Fetching Weather";
+                    return;
+                }
                 summaryText = summaryText
                     .toLowerCase()
                     .replace(/(day)/g, "")
@@ -121,10 +126,10 @@ export default class Weather extends Vue {
             })
             .catch(error => {
                 console.log(error);
-                this.icon = "error";
+                this.icon = require(`@/assets/weather/icon/error.png`);
                 this.summary = "error";
-                this.temperature = -1;
-                this.apparentTemperature = -1;
+                this.temperature = -90;
+                this.apparentTemperature = -90;
             });
     }
 }
