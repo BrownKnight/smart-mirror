@@ -13,8 +13,7 @@
     "baseUrl": ".",
     "types": [
       "webpack-env",
-      "MusicKit",
-      "MusicKit.Configuration"
+      "MusicKit"
     ],
     "paths": {
       "@/*": [

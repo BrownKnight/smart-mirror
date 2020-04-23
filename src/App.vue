@@ -82,6 +82,10 @@ body {
 
 #calendar {
     grid-column: right-l / right-r;
-    grid-row: 1 / span auto;
+    /* grid-row: 1 / span auto; */
+}
+
+#apple-music {
+    grid-column: left-c / right-c;
 }
 </style>
