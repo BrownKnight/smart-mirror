@@ -66,7 +66,7 @@ export default class Calendar extends Vue {
             //     endDate: moment()
             // });
         } else {
-            fetch("/api/calender")
+            fetch("/api/calendar")
                 .then(res => res.json())
                 .then(json => {
                     this.eventList = json;
