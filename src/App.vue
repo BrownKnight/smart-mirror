@@ -7,6 +7,7 @@
         <Calendar id="calendar" />
         <!-- <Leon id="leon" /> -->
         <AppleMusic id="apple-music" />
+        <MyCroft id="mycroft" />
     </div>
 </template>
 
@@ -18,6 +19,7 @@ import Greeting from "./components/Greeting.vue";
 import Weather from "./components/Weather.vue";
 import Calendar from "./components/Calendar.vue";
 // import Leon from "./components/Leon.vue";
+import MyCroft from "./components/MyCroft.vue";
 import AppleMusic from "./components/AppleMusic.vue";
 
 @Component({
@@ -28,6 +30,7 @@ import AppleMusic from "./components/AppleMusic.vue";
         DateString,
         Calendar,
         // Leon,
+        MyCroft,
         AppleMusic
     }
 })

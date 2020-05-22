@@ -4,21 +4,25 @@
         <div id="artwork" v-if="!currentItem"></div>
         <div id="title" v-if="currentItem">{{ currentItem.title }}</div>
         <div id="albumartist" v-if="currentItem">{{ currentItem.albumName }} | {{ currentItem.artistName }}</div>
-        <button v-on:click="search('car', ['albums', 'playlists'])">Play!</button>
+        <button v-on:click="playMusic()">Play!</button>
+        <button v-on:click="search('car', ['albums', 'playlists'])">Search For Car</button>
         <button v-on:click="stopMusic">Stop</button>
     </div>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import MycroftClient, { WebMusicControlMessage } from "./../mycroft-client/mycroftClient";
 @Component
 export default class AppleMusic extends Vue {
     music!: MusicKit.MusicKitInstance;
     currentItem: MusicKit.MediaItem | null = null;
 
+    mycroftClient!: MycroftClient;
+
     created() {
         document.addEventListener("musickitloaded", this.configureMusicKit);
-        // this.music = window.MusicKit.getInstance();
+        this.mycroftClient = MycroftClient.getInstance();
     }
 
     private configureMusicKit() {
@@ -43,17 +47,13 @@ export default class AppleMusic extends Vue {
     }
 
     private registerEventHandlers() {
-        this.music.addEventListener("playbackStateDidChange", () => {
-            if (this.music.player.isPlaying) {
-                this.currentItem = this.music.player.nowPlayingItem;
-            } else {
-                this.currentItem = null;
-            }
-        });
+        //TODO: Tell MyCroft about the change in media item
+        this.music.addEventListener("playbackStateDidChange", this.updateNowPlayingItem.bind(this));
+        this.mycroftClient.on("play", this.attemptToPlay.bind(this));
     }
 
     private search(searchTerm: string, resultTypes: string[]) {
-        console.log("play music");
+        console.log(`Searching for ${resultTypes} called ${searchTerm}`);
         // Set the playback queue to a specific album, and play
         this.music.api.library.search(searchTerm, { types: resultTypes.join(",") }).then(resource => {
             if (Object.keys(resource).length === 0) {
@@ -63,25 +63,56 @@ export default class AppleMusic extends Vue {
                 return;
             }
             console.log(resource);
-            console.log(`Found ${resource["library-playlists"].data.length} Playlists`);
-            const playlist = resource["library-playlists"].data[0];
-            console.log("Found playlist");
-            console.log(playlist);
-            this.music.setQueue({ playlist: playlist.id }).then(() => {
-                this.music.play();
-            });
-        });
-        // this.music.setQueue({
-        //     album: "1025210938"
-        // });
 
-        // // Playback Controls
-        // this.music.play();
+            if (resultTypes.includes("songs") && "library-songs" in resource) {
+                console.log(`Found ${resource["library-songs"].data.length} Songs in response`);
+                const song = resource["library-songs"].data[0];
+                this.music.setQueue({ song: song.id }).then(() => {
+                    this.music.play();
+                });
+            } else if (resultTypes.includes("albums") && "library-albums" in resource) {
+                console.log(`Found ${resource["library-albums"].data.length} albums in response`);
+                const album = resource["library-albums"].data[0];
+                this.music.setQueue({ album: album.id }).then(() => {
+                    this.music.play();
+                });
+            } else if (resultTypes.includes("playlists") && "library-playlists" in resource) {
+                console.log(`Found ${resource["library-playlists"].data.length} playlists in response`);
+                const playlist = resource["library-playlists"].data[0];
+                this.music.setQueue({ playlist: playlist.id }).then(() => {
+                    this.music.play();
+                });
+            }
+        });
+    }
+
+    playMusic() {
+        this.music.play().then(() => console.log("Playing!"));
+        console.log(this.music.player.nowPlayingItem);
     }
 
     stopMusic() {
         this.music.stop();
     }
+
+    //region APPLE MUSIC EVENT HANDLERS
+    private updateNowPlayingItem() {
+        if (this.music.player.isPlaying) {
+            this.currentItem = this.music.player.nowPlayingItem;
+        } else {
+            this.currentItem = null;
+        }
+    }
+    //endregion
+    //region MYCROFT EVENT HANDLERS
+    //TODO: Send messages back with currently playing info
+    private attemptToPlay(message: WebMusicControlMessage) {
+        console.log("Attempting to play new music");
+        console.log(message);
+        const mediaTypes = message.data.type.split("+");
+        this.search(message.data.name ?? "", mediaTypes);
+    }
+    //endregion
 }
 </script>
 
