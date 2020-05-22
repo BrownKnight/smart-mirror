@@ -49,7 +49,16 @@ export default class AppleMusic extends Vue {
     private registerEventHandlers() {
         //TODO: Tell MyCroft about the change in media item
         this.music.addEventListener("playbackStateDidChange", this.updateNowPlayingItem.bind(this));
-        this.mycroftClient.on("play", this.attemptToPlay.bind(this));
+
+        this.mycroftClient.onWebMusicControlMessage("play", this.attemptToPlayNewMedia.bind(this));
+
+        this.mycroftClient.onAudioControlMessage("resume", this.resumeMusic.bind(this));
+        this.mycroftClient.onAudioControlMessage("pause", this.pauseMusic.bind(this));
+        this.mycroftClient.onAudioControlMessage("stop", this.pauseMusic.bind(this));
+        this.mycroftClient.onAudioControlMessage("next", this.nextTrack.bind(this));
+        this.mycroftClient.onAudioControlMessage("prev", this.previousTrack.bind(this));
+
+        this.mycroftClient.onAudioControlMessage("track_info", this.sendTrackInfo.bind(this));
     }
 
     private search(searchTerm: string, resultTypes: string[]) {
@@ -102,15 +111,46 @@ export default class AppleMusic extends Vue {
         } else {
             this.currentItem = null;
         }
+        this.sendTrackInfo();
     }
     //endregion
     //region MYCROFT EVENT HANDLERS
     //TODO: Send messages back with currently playing info
-    private attemptToPlay(message: WebMusicControlMessage) {
+    private attemptToPlayNewMedia(message: WebMusicControlMessage) {
         console.log("Attempting to play new music");
         console.log(message);
         const mediaTypes = message.data.type.split("+");
         this.search(message.data.name ?? "", mediaTypes);
+    }
+
+    private pauseMusic() {
+        this.music.player.pause();
+    }
+
+    private resumeMusic() {
+        this.music.player.play();
+    }
+
+    private nextTrack() {
+        this.music.player.skipToNextItem();
+    }
+
+    private previousTrack() {
+        this.music.player.skipToPreviousItem();
+    }
+
+    private sendTrackInfo() {
+        const appleMusicTrackInfo = this.music.player.nowPlayingItem;
+        if (!appleMusicTrackInfo) {
+            return;
+        }
+        const trackInfo = {
+            name: appleMusicTrackInfo.title,
+            artist: appleMusicTrackInfo.artistName,
+            album: appleMusicTrackInfo.albumName,
+            url: appleMusicTrackInfo.artworkURL
+        };
+        this.mycroftClient.sendMessage("mycroft.audio.service.track_info_reply", trackInfo);
     }
     //endregion
 }
