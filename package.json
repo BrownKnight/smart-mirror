@@ -29,7 +29,7 @@
     "moment": "^2.24.0",
     "musickit-typescript": "^1.2.4",
     "nan": "^2.14.0",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.1",
     "node-gyp": "^6.1.0",
     "require": "^2.4.20",
     "socket.io": "^2.3.0",
