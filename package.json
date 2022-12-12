@@ -20,7 +20,7 @@
     "@vue/cli-shared-utils": "^3.12.1",
     "body-parser": "^1.19.0",
     "core-js": "^3.6.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "fsevents": "^2.1.2",
     "ical2json": "^3.0.0",
     "jquery": "^3.5.0",
